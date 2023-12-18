@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { CameraOperator } from '../core/CameraOperator';
 import { IUpdatable } from '../interfaces/IUpdatable';
 import { InputManager } from '../core/InputManager';
+import { OrbitControls } from '../core/OrbitControls';
 
 export class ThreeWorld {
   public renderer: THREE.WebGLRenderer;
@@ -22,8 +23,8 @@ export class ThreeWorld {
   public sinceLastFrame: number;
   public justRendered: boolean;
   public params: any;
-  public inputManager: InputManager;
-  public cameraOperator: CameraOperator;
+  public inputManager: InputManager | undefined;
+  public cameraOperator: CameraOperator | undefined;
   public timeScaleTarget: number = 1;
   // public console: InfoStack;
   // public cannonDebugRenderer: CannonDebugRenderer;
@@ -34,7 +35,9 @@ export class ThreeWorld {
   // public scenarioGUIFolder: any;
   public updatables: IUpdatable[] = [];
 
-  constructor() {
+  orbitControls: OrbitControls | undefined;
+
+  constructor(useOrbitControls: boolean = true) {
     console.log('Hello ThreeWorld TS');
 
     const scope = this;
@@ -75,12 +78,16 @@ export class ThreeWorld {
     this.justRendered = false;
 
     // Initialization Controls
-    this.inputManager = new InputManager(this, this.renderer.domElement);
-    this.cameraOperator = new CameraOperator(
-      this,
-      this.camera,
-      1.0 //this.params.Mouse_Sensitivity
-    );
+    if (useOrbitControls) {
+      this.orbitControls = new OrbitControls(this, this.camera);
+    } else {
+      this.inputManager = new InputManager(this, this.renderer.domElement);
+      this.cameraOperator = new CameraOperator(
+        this,
+        this.camera,
+        1.0 //this.params.Mouse_Sensitivity
+      );
+    }
 
     this.createDefaultObjects();
 
