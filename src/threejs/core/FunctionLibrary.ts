@@ -13,6 +13,18 @@ export function getRight(
   );
 }
 
+export function getUp(
+  obj: THREE.Object3D,
+  space: Space = Space.Global
+): THREE.Vector3 {
+  const matrix = getMatrix(obj, space);
+  return new THREE.Vector3(
+    matrix.elements[4],
+    matrix.elements[5],
+    matrix.elements[6]
+  );
+}
+
 export function getForward(
   obj: THREE.Object3D,
   space: Space = Space.Global

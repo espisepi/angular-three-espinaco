@@ -209,8 +209,7 @@ export class CameraOperator implements IInputReceiver, IUpdatable {
       this.movementSpeed *
       (this.actions['fast'].isPressed ? timeStep * 600 : timeStep * 60);
 
-    // const up = Utils.getUp(this.camera);
-    const up = Utils.getForward(this.camera);
+    const up = Utils.getUp(this.camera);
     const right = Utils.getRight(this.camera);
     const forward = Utils.getBack(this.camera);
 
