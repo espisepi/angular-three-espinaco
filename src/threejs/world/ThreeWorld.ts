@@ -1,4 +1,7 @@
 import * as THREE from 'three';
+import { CameraOperator } from '../core/CameraOperator';
+import { IUpdatable } from '../interfaces/IUpdatable';
+import { InputManager } from '../core/InputManager';
 
 export class ThreeWorld {
   public renderer: THREE.WebGLRenderer;
@@ -19,8 +22,8 @@ export class ThreeWorld {
   public sinceLastFrame: number;
   public justRendered: boolean;
   public params: any;
-  // public inputManager: InputManager;
-  // public cameraOperator: CameraOperator;
+  public inputManager: InputManager;
+  public cameraOperator: CameraOperator;
   public timeScaleTarget: number = 1;
   // public console: InfoStack;
   // public cannonDebugRenderer: CannonDebugRenderer;
@@ -29,7 +32,7 @@ export class ThreeWorld {
   // public vehicles: Vehicle[] = [];
   // public paths: Path[] = [];
   // public scenarioGUIFolder: any;
-  // public updatables: IUpdatable[] = [];
+  public updatables: IUpdatable[] = [];
 
   constructor() {
     console.log('Hello ThreeWorld TS');
@@ -71,6 +74,14 @@ export class ThreeWorld {
     this.sinceLastFrame = 0;
     this.justRendered = false;
 
+    // Initialization Controls
+    this.inputManager = new InputManager(this, this.renderer.domElement);
+    this.cameraOperator = new CameraOperator(
+      this,
+      this.camera,
+      1.0 //this.params.Mouse_Sensitivity
+    );
+
     this.createDefaultObjects();
 
     this.render(this);
@@ -85,14 +96,19 @@ export class ThreeWorld {
     this.graphicsWorld.add(mesh);
   }
 
-  private generateHTML(): void {}
+  private generateHTML(): void {
+    // Canvas
+    document.body.appendChild(this.renderer.domElement);
+    this.renderer.domElement.id = 'canvas';
+  }
 
   // Update
   //  Handles all logic updates.
   public update(timeStep: number, unscaledTimeStep: number): void {
-    // Canvas
-    document.body.appendChild(this.renderer.domElement);
-    this.renderer.domElement.id = 'canvas';
+    // Update registred objects
+    this.updatables.forEach((entity) => {
+      entity.update(timeStep, unscaledTimeStep);
+    });
   }
 
   /**
@@ -138,5 +154,42 @@ export class ThreeWorld {
 
     // Measuring render time
     this.renderDelta = this.clock.getDelta();
+  }
+
+  // Metodos
+  public updateControls(controls: any): void {
+    // let html = '';
+    // html += '<h2 class="controls-title">Controls:</h2>';
+    // controls.forEach((row) => {
+    //   html += '<div class="ctrl-row">';
+    //   row.keys.forEach((key) => {
+    //     if (key === '+' || key === 'and' || key === 'or' || key === '&')
+    //       html += '&nbsp;' + key + '&nbsp;';
+    //     else html += '<span class="ctrl-key">' + key + '</span>';
+    //   });
+    //   html += '<span class="ctrl-desc">' + row.desc + '</span></div>';
+    // });
+    // document.getElementById('controls').innerHTML = html;
+  }
+
+  public registerUpdatable(registree: IUpdatable): void {
+    this.updatables.push(registree);
+    this.updatables.sort((a, b) => (a.updateOrder > b.updateOrder ? 1 : -1));
+  }
+
+  public scrollTheTimeScale(scrollAmount: number): void {
+    // Changing time scale with scroll wheel
+    const timeScaleBottomLimit = 0.003;
+    const timeScaleChangeSpeed = 1.3;
+
+    if (scrollAmount > 0) {
+      this.timeScaleTarget /= timeScaleChangeSpeed;
+      if (this.timeScaleTarget < timeScaleBottomLimit) this.timeScaleTarget = 0;
+    } else {
+      this.timeScaleTarget *= timeScaleChangeSpeed;
+      if (this.timeScaleTarget < timeScaleBottomLimit)
+        this.timeScaleTarget = timeScaleBottomLimit;
+      this.timeScaleTarget = Math.min(this.timeScaleTarget, 1);
+    }
   }
 }
