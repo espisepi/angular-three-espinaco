@@ -24,7 +24,7 @@ export class InputManager implements IUpdatable {
 
   constructor(world: World, domElement: HTMLElement) {
     this.world = world;
-    this.pointerLock = true; // world.params.Pointer_Lock ;
+    this.pointerLock = false; // world.params.Pointer_Lock ;
     this.domElement = domElement || document.body;
     this.isLocked = false;
 
