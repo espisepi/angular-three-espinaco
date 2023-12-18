@@ -7,9 +7,11 @@ import { ThreeWorld } from '../../../threejs/world/ThreeWorld';
 export class ThreeWorldService {
   world: ThreeWorld | null = null;
 
-  constructor() {}
+  constructor() {
+    this.initWorld();
+  }
 
-  initWorld() {
+  private initWorld() {
     console.log('InitWorld!');
     this.world = new ThreeWorld();
   }
