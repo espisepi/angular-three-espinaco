@@ -1,0 +1,1 @@
+- Usar el "Freeing Resources" Para ir mostrando distintas escenas en cada url: https://threejs.org/manual/#en/cleanup
