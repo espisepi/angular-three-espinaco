@@ -5,6 +5,7 @@ import { InputManager } from '../core/InputManager';
 import { OrbitControls } from '../core/OrbitControls';
 import { LoadingManager } from '../loaders/LoadingManager';
 import { SceneManager } from '../scenes/SceneManager';
+import { CustomStats } from '../core/CustomStats';
 
 export class ThreeWorld {
   public renderer: THREE.WebGLRenderer;
@@ -39,6 +40,7 @@ export class ThreeWorld {
 
   public loadingManager: LoadingManager;
   public sceneManager: SceneManager;
+  public customStats: CustomStats;
 
   orbitControls: OrbitControls | undefined;
 
@@ -96,6 +98,7 @@ export class ThreeWorld {
 
     this.loadingManager = new LoadingManager(this);
     this.sceneManager = new SceneManager(this.loadingManager, this);
+    this.customStats = new CustomStats(this);
 
     this.render(this);
   }
