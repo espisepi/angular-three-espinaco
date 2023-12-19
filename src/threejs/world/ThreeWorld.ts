@@ -45,7 +45,7 @@ export class ThreeWorld {
   orbitControls: OrbitControls | undefined;
 
   constructor(useOrbitControls: boolean = true) {
-    console.log('Hello ThreeWorld TS');
+    console.log('Hello ThreeWorld TS', { world: this });
 
     const scope = this;
 
