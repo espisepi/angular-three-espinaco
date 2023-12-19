@@ -4,6 +4,7 @@ import { IUpdatable } from '../interfaces/IUpdatable';
 import { InputManager } from '../core/InputManager';
 import { OrbitControls } from '../core/OrbitControls';
 import { LoadingManager } from '../loaders/LoadingManager';
+import { SceneManager } from '../scenes/SceneManager';
 
 export class ThreeWorld {
   public renderer: THREE.WebGLRenderer;
@@ -37,6 +38,7 @@ export class ThreeWorld {
   public updatables: IUpdatable[] = [];
 
   public loadingManager: LoadingManager;
+  public sceneManager: SceneManager;
 
   orbitControls: OrbitControls | undefined;
 
@@ -93,42 +95,9 @@ export class ThreeWorld {
     }
 
     this.loadingManager = new LoadingManager(this);
-    this.loadScene();
+    this.sceneManager = new SceneManager(this.loadingManager, this);
 
     this.render(this);
-  }
-
-  loadScene(scenePath?: string): void {
-    this.createDefaultObjects();
-
-    this.loadingManager.onFinishedCallback = () => {
-      this.update(1, 1);
-      this.setTimeScale(1);
-
-      // Swal.fire({
-      // 	title: 'Welcome to Sketchbook!',
-      // 	text: 'Feel free to explore the world and interact with available vehicles. There are also various scenarios ready to launch from the right panel.',
-      // 	footer: '<a href="https://github.com/swift502/Sketchbook" target="_blank">GitHub page</a><a href="https://discord.gg/fGuEqCe" target="_blank">Discord server</a>',
-      // 	confirmButtonText: 'Okay',
-      // 	buttonsStyling: false,
-      // 	onClose: () => {
-      // 		UIManager.setUserInterfaceVisible(true);
-      // 	}
-      // });
-      // UIManager.setUserInterfaceVisible(true);
-    };
-    // this.loadingManager.loadGLTF(scenePath, (gltf) => {
-    //   this.loadScene(this.loadingManager, gltf);
-    // });
-  }
-
-  createDefaultObjects(): void {
-    const mesh = new THREE.Mesh(
-      new THREE.BoxGeometry(1, 1, 1),
-      new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true })
-    );
-    mesh.position.set(0, 0, -5.0);
-    this.graphicsWorld.add(mesh);
   }
 
   private generateHTML(): void {
