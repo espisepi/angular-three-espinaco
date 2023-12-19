@@ -3,6 +3,7 @@ import { CameraOperator } from '../core/CameraOperator';
 import { IUpdatable } from '../interfaces/IUpdatable';
 import { InputManager } from '../core/InputManager';
 import { OrbitControls } from '../core/OrbitControls';
+import { LoadingManager } from '../loaders/LoadingManager';
 
 export class ThreeWorld {
   public renderer: THREE.WebGLRenderer;
@@ -34,6 +35,8 @@ export class ThreeWorld {
   // public paths: Path[] = [];
   // public scenarioGUIFolder: any;
   public updatables: IUpdatable[] = [];
+
+  public loadingManager: LoadingManager;
 
   orbitControls: OrbitControls | undefined;
 
@@ -89,9 +92,34 @@ export class ThreeWorld {
       );
     }
 
-    this.createDefaultObjects();
+    this.loadingManager = new LoadingManager(this);
+    this.loadScene();
 
     this.render(this);
+  }
+
+  loadScene(scenePath?: string): void {
+    this.createDefaultObjects();
+
+    this.loadingManager.onFinishedCallback = () => {
+      this.update(1, 1);
+      this.setTimeScale(1);
+
+      // Swal.fire({
+      // 	title: 'Welcome to Sketchbook!',
+      // 	text: 'Feel free to explore the world and interact with available vehicles. There are also various scenarios ready to launch from the right panel.',
+      // 	footer: '<a href="https://github.com/swift502/Sketchbook" target="_blank">GitHub page</a><a href="https://discord.gg/fGuEqCe" target="_blank">Discord server</a>',
+      // 	confirmButtonText: 'Okay',
+      // 	buttonsStyling: false,
+      // 	onClose: () => {
+      // 		UIManager.setUserInterfaceVisible(true);
+      // 	}
+      // });
+      // UIManager.setUserInterfaceVisible(true);
+    };
+    // this.loadingManager.loadGLTF(scenePath, (gltf) => {
+    //   this.loadScene(this.loadingManager, gltf);
+    // });
   }
 
   createDefaultObjects(): void {
@@ -198,5 +226,10 @@ export class ThreeWorld {
         this.timeScaleTarget = timeScaleBottomLimit;
       this.timeScaleTarget = Math.min(this.timeScaleTarget, 1);
     }
+  }
+
+  public setTimeScale(value: number): void {
+    // this.params.Time_Scale = value;
+    this.timeScaleTarget = value;
   }
 }
