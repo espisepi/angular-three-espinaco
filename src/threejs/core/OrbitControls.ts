@@ -27,5 +27,7 @@ export class OrbitControls implements IUpdatable {
     this.controls.maxDistance = 500;
 
     this.controls.maxPolarAngle = Math.PI / 2;
+
+    this.controls.autoRotate = true;
   }
 }
