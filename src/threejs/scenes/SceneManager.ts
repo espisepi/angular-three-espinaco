@@ -15,7 +15,7 @@ export class SceneManager {
 
     this.createDefaultObjects();
 
-    this.loadSceneGLTFByPath('assets/car.glb');
+    this.loadSceneGLTFByPath('assets/heli.glb');
   }
 
   loadSceneGLTFByPath(scenePath: string): void {
@@ -37,7 +37,12 @@ export class SceneManager {
 
   createLights(): void {
     const ambientLight = new THREE.AmbientLight();
+    ambientLight.intensity = 1.0;
     this.world.graphicsWorld.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight();
+    directionalLight.position.set(0, 5, 0);
+    this.world.graphicsWorld.add(directionalLight);
   }
 
   createDefaultObjects(): void {
