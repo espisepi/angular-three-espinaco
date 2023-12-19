@@ -10,6 +10,6 @@ export class HomeComponent implements OnInit {
   constructor(private threeWorldService: ThreeWorldService) {}
 
   ngOnInit(): void {
-    // this.threeWorldService.initWorld();
+    this.threeWorldService.loadGLTFScene('assets/heli.glb');
   }
 }

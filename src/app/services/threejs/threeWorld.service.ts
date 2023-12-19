@@ -15,4 +15,8 @@ export class ThreeWorldService {
     console.log('InitWorld!');
     this.world = new ThreeWorld();
   }
+
+  loadGLTFScene(scenePath: string) {
+    this.world?.loadSceneGLTFByPath(scenePath);
+  }
 }

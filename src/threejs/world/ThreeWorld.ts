@@ -201,4 +201,9 @@ export class ThreeWorld {
     // this.params.Time_Scale = value;
     this.timeScaleTarget = value;
   }
+
+  // Metodos para usar en los servicios de angular y tener comunicacion con el exterior
+  loadSceneGLTFByPath(scenePath: string) {
+    this.sceneManager.loadSceneGLTFByPath(scenePath);
+  }
 }

@@ -10,6 +10,6 @@ export class VideoPointsComponent implements OnInit {
   constructor(private threeWorldService: ThreeWorldService) {}
 
   ngOnInit(): void {
-    // this.threeWorldService.initWorld();
+    this.threeWorldService.loadGLTFScene('assets/car.glb');
   }
 }
