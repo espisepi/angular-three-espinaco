@@ -1,8 +1,8 @@
-import { CameraOperator } from '../core/CameraOperator';
-import { InputManager } from '../core/InputManager';
-import { OrbitControls } from '../core/OrbitControls';
-import { IUpdatable } from '../interfaces/IUpdatable';
-import { ThreeWorld as World } from '../world/ThreeWorld';
+import { CameraOperator } from '../CameraOperator';
+import { InputManager } from '../InputManager';
+import { OrbitControls } from '../OrbitControls';
+import { IUpdatable } from '../../interfaces/IUpdatable';
+import { ThreeWorld as World } from '../../world/ThreeWorld';
 
 export class ControlsManager {
   updateOrder: number = 1;
@@ -15,7 +15,7 @@ export class ControlsManager {
     world: World,
     camera: THREE.Camera,
     renderer: THREE.WebGLRenderer,
-    useOrbitControls: boolean = false
+    useOrbitControls: boolean = true
   ) {
     if (useOrbitControls) {
       this.orbitControls = new OrbitControls(world, camera);

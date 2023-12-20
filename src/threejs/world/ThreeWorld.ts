@@ -1,12 +1,12 @@
 import * as THREE from 'three';
-import { CameraOperator } from '../core/CameraOperator';
+import { CameraOperator } from '../controls/CameraOperator';
 import { IUpdatable } from '../interfaces/IUpdatable';
-import { InputManager } from '../core/InputManager';
-import { OrbitControls } from '../core/OrbitControls';
+import { InputManager } from '../controls/InputManager';
+import { OrbitControls } from '../controls/OrbitControls';
 import { LoadingManager } from '../loaders/LoadingManager';
 import { SceneManager } from '../scenes/SceneManager';
 import { CustomStats } from '../core/CustomStats';
-import { ControlsManager } from '../controls/ControlsManager';
+import { ControlsManager } from '../controls/manager/ControlsManager';
 
 export class ThreeWorld {
   public renderer: THREE.WebGLRenderer;

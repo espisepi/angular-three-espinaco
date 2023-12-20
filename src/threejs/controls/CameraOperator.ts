@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import * as Utils from './FunctionLibrary';
+import * as Utils from '../core/FunctionLibrary';
 import { ThreeWorld as World } from '../world/ThreeWorld';
 import { IInputReceiver } from '../interfaces/IInputReceiver';
 import { KeyBinding } from './KeyBinding';
