@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import * as _ from 'lodash';
+
 import { CameraOperator } from '../controls/CameraOperator';
 import { IUpdatable } from '../interfaces/IUpdatable';
 import { InputManager } from '../controls/InputManager';
@@ -180,6 +182,10 @@ export class ThreeWorld {
   public registerUpdatable(registree: IUpdatable): void {
     this.updatables.push(registree);
     this.updatables.sort((a, b) => (a.updateOrder > b.updateOrder ? 1 : -1));
+  }
+
+  public unregisterUpdatable(registree: IUpdatable): void {
+    _.pull(this.updatables, registree);
   }
 
   public scrollTheTimeScale(scrollAmount: number): void {
