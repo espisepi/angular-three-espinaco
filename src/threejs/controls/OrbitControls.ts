@@ -5,15 +5,24 @@ import { OrbitControls as OrbitControlsThree } from 'three/examples/jsm/controls
 export class OrbitControls implements IUpdatable {
   updateOrder: number = 4;
 
+  world: World;
+
   controls: OrbitControlsThree;
 
   constructor(world: World, camera: THREE.Camera) {
+    this.world = world;
     this.controls = new OrbitControlsThree(camera, world.renderer.domElement);
     this.setupControls();
-    world.registerUpdatable(this);
+    this.world.registerUpdatable(this);
   }
   update(timestep: number, unscaledTimeStep: number): void {
     this.controls.update();
+  }
+
+  dispose() {
+    console.log('OYEE');
+    this.world.unregisterUpdatable(this);
+    this.controls.dispose();
   }
 
   private setupControls(): void {

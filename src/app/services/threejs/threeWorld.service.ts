@@ -19,4 +19,8 @@ export class ThreeWorldService {
   loadGLTFScene(scenePath: string) {
     this.world?.loadSceneGLTFByPath(scenePath);
   }
+
+  changeControls(useOrbitControls: boolean) {
+    this.world?.controlsManager.changeControls(useOrbitControls);
+  }
 }

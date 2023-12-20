@@ -11,5 +11,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.threeWorldService.loadGLTFScene('assets/heli.glb');
+    this.threeWorldService.changeControls(true);
   }
 }

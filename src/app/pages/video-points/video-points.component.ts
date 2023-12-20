@@ -11,5 +11,6 @@ export class VideoPointsComponent implements OnInit {
 
   ngOnInit(): void {
     this.threeWorldService.loadGLTFScene('assets/car.glb');
+    this.threeWorldService.changeControls(false);
   }
 }
