@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { LoadingManager } from '../loaders/LoadingManager';
-import { ThreeWorld as World } from '../world/ThreeWorld';
+import { LoadingManager } from '../../loaders/LoadingManager';
+import { ThreeWorld as World } from '../../world/ThreeWorld';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export class SceneManager {

@@ -4,7 +4,7 @@ import { IUpdatable } from '../interfaces/IUpdatable';
 import { InputManager } from '../controls/InputManager';
 import { OrbitControls } from '../controls/OrbitControls';
 import { LoadingManager } from '../loaders/LoadingManager';
-import { SceneManager } from '../scenes/SceneManager';
+import { SceneManager } from '../scenes/manager/SceneManager';
 import { CustomStats } from '../core/CustomStats';
 import { ControlsManager } from '../controls/manager/ControlsManager';
 
