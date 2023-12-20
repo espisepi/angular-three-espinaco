@@ -6,6 +6,7 @@ import { OrbitControls } from '../core/OrbitControls';
 import { LoadingManager } from '../loaders/LoadingManager';
 import { SceneManager } from '../scenes/SceneManager';
 import { CustomStats } from '../core/CustomStats';
+import { ControlsManager } from '../controls/ControlsManager';
 
 export class ThreeWorld {
   public renderer: THREE.WebGLRenderer;
@@ -26,8 +27,8 @@ export class ThreeWorld {
   public sinceLastFrame: number;
   public justRendered: boolean;
   public params: any;
-  public inputManager: InputManager | undefined;
-  public cameraOperator: CameraOperator | undefined;
+  // public inputManager: InputManager | undefined; // Managed in ControlsManager
+  // public cameraOperator: CameraOperator | undefined; // Managed in ControlsManager
   public timeScaleTarget: number = 1;
   // public console: InfoStack;
   // public cannonDebugRenderer: CannonDebugRenderer;
@@ -42,9 +43,10 @@ export class ThreeWorld {
   public sceneManager: SceneManager;
   public customStats: CustomStats;
 
-  orbitControls: OrbitControls | undefined;
+  // orbitControls: OrbitControls | undefined; // Managed in ControlsManager
+  public controlsManager: ControlsManager;
 
-  constructor(useOrbitControls: boolean = true) {
+  constructor(useOrbitControls?: boolean) {
     console.log('Hello ThreeWorld TS', { world: this });
 
     const scope = this;
@@ -85,16 +87,12 @@ export class ThreeWorld {
     this.justRendered = false;
 
     // Initialization Controls
-    if (useOrbitControls) {
-      this.orbitControls = new OrbitControls(this, this.camera);
-    } else {
-      this.inputManager = new InputManager(this, this.renderer.domElement);
-      this.cameraOperator = new CameraOperator(
-        this,
-        this.camera,
-        1.0 //this.params.Mouse_Sensitivity
-      );
-    }
+    this.controlsManager = new ControlsManager(
+      this,
+      this.camera,
+      this.renderer,
+      useOrbitControls
+    );
 
     this.loadingManager = new LoadingManager(this);
     this.sceneManager = new SceneManager(this.loadingManager, this);

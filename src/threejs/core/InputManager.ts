@@ -69,9 +69,9 @@ export class InputManager implements IUpdatable {
     if (
       this.inputReceiver === undefined &&
       this.world !== undefined &&
-      this.world.cameraOperator !== undefined
+      this.world.controlsManager.cameraOperator !== undefined
     ) {
-      this.setInputReceiver(this.world.cameraOperator);
+      this.setInputReceiver(this.world.controlsManager.cameraOperator);
     }
 
     this.inputReceiver?.inputReceiverUpdate(unscaledTimeStep);
