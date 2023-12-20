@@ -63,7 +63,7 @@ export class SceneManager {
   }
 
   createScene1() {
-    this.selectedScene = new Scene1(this.world);
+    this.selectedScene = new Scene1(this.world, this.loadingManager);
   }
 
   // createDefaultObjects(): void {

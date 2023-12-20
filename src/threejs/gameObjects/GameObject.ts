@@ -7,9 +7,13 @@ export class GameObject implements IUpdatable {
   updateOrder: number = 999;
 
   world: World;
-  mesh: THREE.Mesh;
+  mesh: THREE.Mesh | THREE.Object3D;
 
-  constructor(world: World, mesh: THREE.Mesh, updateOrder?: number) {
+  constructor(
+    world: World,
+    mesh: THREE.Mesh | THREE.Object3D,
+    updateOrder?: number
+  ) {
     if (updateOrder) {
       this.updateOrder = updateOrder;
     }
